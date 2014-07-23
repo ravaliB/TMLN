@@ -21,4 +21,6 @@ int main()
  
     /*Destroy the trie*/
     TrieDestroy(root);
+
+    return 1;
 }

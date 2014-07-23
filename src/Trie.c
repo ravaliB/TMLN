@@ -1,5 +1,7 @@
 #include "Trie.h"
 
+static trieNode_t *TrieCreateNode(char key, int data);
+
 void TrieCreate(trieNode_t **root)
 {
 	*root = TrieCreateNode('\0', 0xffffffff);
