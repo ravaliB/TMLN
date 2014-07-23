@@ -1,5 +1,5 @@
-#define TRIE_VERSION_MAJEUR 
-#define TRIE_VERSION_MINEUR 0
+#ifndef TRIE_H
+#define TRIE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,8 +16,9 @@ struct trieNode {
 };
 
 void TrieCreate(trieNode_t **root);
-static trieNode_t* TrieCreateNode(char key, int data);
 void TrieAdd(trieNode_t **root, char *key, int data);
-trieNode_t* TrieSearch(trieNode_t* root, const char *key);
+trieNode_t *TrieSearch(trieNode_t* root, const char *key);
 void TrieRemove(trieNode_t **root, char* key);
 void TrieDestroy(trieNode_t* root);
+
+#endif

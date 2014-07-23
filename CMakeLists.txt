@@ -1,16 +1,14 @@
 cmake_minimum_required (VERSION 2.6)
-project (Trie)
- 
-set (Trie_VERSION_MAJOR  1)
-set (Trie_VERSION_MINOR 0)
+project (TLMN)
 
-configure_file(
-"${PROJECT_SOURCE_DIR}/src/Trie.h.in"
-"${PROJECT_SOURCE_DIR}/src/Trie.h"
-)
+set(CMAKE_C_FLAGS "-Werror -Wall")
+set(CMAKE_C_FLAGS_DEBUG "-g -DDEBUG")
 
-include_directories("${PROJECT_BINARY_DIR}")
-include_directories("${PROJECT_SOURCE_DIR}/src")
-add_subdirectory(src)
+message("CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
 
-#add_executable(Trie main.c)
+file( GLOB_RECURSE
+    sourceFiles
+    src/*)
+
+add_executable( Trie
+    ${sourceFiles})
