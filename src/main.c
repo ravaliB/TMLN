@@ -1,29 +1,33 @@
-#include "Trie.h"
-#include "dict.h"
-#ifdef WIN_32
-#include "mman.h"
-#endif
-#include "tpl.h"
 #include <stdio.h>
 
+#include "trie.h"
+#include "dict.h"
 
-int main(int argc, char **argv)
+void test(char* Path) 
 {
-    trieNode_t* root;
+    Trie trie;
 
+    trie = loadDict(Path);
+
+    int* freq = Trie_get(trie, "unsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettres");
+    printf("%p %i\n", freq, *freq);
+
+    if (!trie)
+        Trie_del(trie);
+}
+
+
+int main(int argc, char* argv[]) 
+{
     if (argc == 2)
     {
         if (argv[1] != NULL)
         {
-            root = loadDict(argv[1]);
+            test(argv[1]);
         }
     }
     else
         printf("Please mention dictionnary\n");
 
-    TrieSearch(root, "taxi");
-
-    TrieDestroy(root);
-    
     return 1;
 }
