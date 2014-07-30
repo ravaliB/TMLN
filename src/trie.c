@@ -212,6 +212,12 @@ void Trie_del(Trie trie)
             free(transition->suffix);
         Trie_del(transition->next);
     }
+   
+    if (trie->value)
+        free(trie->value);
+
+    free(trie->transitions);
+    
     free(trie);
 }
 
@@ -279,8 +285,6 @@ _get_approximate_transition(const unsigned char *key,
         const int mismatches,
         unsigned char *current_key, const int max_key
         )
-
-
 {
     int i;
     int prev_keylen = strlen(current_key);
@@ -357,8 +361,6 @@ _get_approximate_trie(const Trie trie, const unsigned char *key, const int k,
         const int mismatches,
         unsigned char *current_key, const int max_key
         )
-
-
 {
     int i;
 
@@ -405,8 +407,6 @@ _get_approximate_trie(const Trie trie, const unsigned char *key, const int k,
 }
 
 
-
-
     void 
 Trie_get_approximate(const Trie trie, const unsigned char *key, const int k,
         void (*callback)(const unsigned char *key, 
@@ -415,8 +415,6 @@ Trie_get_approximate(const Trie trie, const unsigned char *key, const int k,
             void *data),
         void *data
         )
-
-
 {
     KEY[0] = 0;
     _get_approximate_trie(trie, key, k, callback, data, 0, KEY,MAX_KEY_LENGTH);
@@ -425,8 +423,6 @@ Trie_get_approximate(const Trie trie, const unsigned char *key, const int k,
 
 
 int Trie_len(const Trie trie) 
-
-
 {
     int i;
     int length = 0;
@@ -525,8 +521,6 @@ Trie_iterate(const Trie trie,
             const void *value,
             void *data),
         void *data)
-
-
 {
     KEY[0] = 0;
     _iterate_helper(trie, callback, data, KEY, MAX_KEY_LENGTH);
@@ -541,8 +535,6 @@ _with_prefix_helper(const Trie trie, const unsigned char *prefix,
             void *data),
         void *data,
         unsigned char *current_key, const int max_key)
-
-
 {
     int first, last, mid;
 
@@ -597,8 +589,6 @@ Trie_with_prefix(const Trie trie, const unsigned char *prefix,
             void *data),
         void *data
         )
-
-
 {
     KEY[0] = 0;
     _with_prefix_helper(trie, prefix, callback, data, KEY, MAX_KEY_LENGTH);

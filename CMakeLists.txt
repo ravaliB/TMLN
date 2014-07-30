@@ -8,9 +8,9 @@ set(PROJECT_SOURCE_DIR "src")
 message("CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
 
 file( GLOB
-    sourceFiles
+    CompilSrcFiles
     src/*
-    ${tlpSrc})
+    src/TextCompil/main.c)
 
-add_executable( Trie
-    ${sourceFiles})
+add_executable( TextMiningCompiler
+    ${CompilSrcFiles})
