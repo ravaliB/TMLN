@@ -351,7 +351,7 @@ _get_approximate_transition(const unsigned char *key,
 
 
 
-    void
+void
 _get_approximate_trie(const Trie trie, const unsigned char *key, const int k,
         void (*callback)(const unsigned char *key, 
             const void *value,

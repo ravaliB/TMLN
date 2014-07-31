@@ -3,6 +3,44 @@
 
 #include "../trie.h"
 #include "../dict.h"
+#include "../list.h"
+
+void testcall(const unsigned char *key, 
+				      const void *value,
+				      const int mismatches,
+				      void *data)
+{
+    //printf("key %s value %i mismatches %i\n", key, *(int*)value, mismatches);
+
+    list l = (list) data;
+
+    listAppend(l, key, *(int*)value, mismatches);
+
+}
+
+void test2()
+{
+    int* freq = malloc(sizeof(int));
+    int* freq2 = malloc(sizeof(int));
+    int* freq3 = malloc(sizeof(int));
+    Trie trie = Trie_new();
+
+    *freq = 666;
+    *freq2 = 777;
+    *freq3 = 888;
+    
+    Trie_set(trie, "testi", freq2);
+    Trie_set(trie, "tqestq", freq3);
+    Trie_set(trie, "test", freq);
+
+
+    list data = listCreate();
+    Trie_get_approximate(trie, "test", 2, &testcall, data);
+    listShow(data);
+    listDel(data);
+    
+    Trie_del(trie);
+}
 
 /**Test serialisation et deserialisation**/
 void test(char* Path) 
@@ -11,12 +49,15 @@ void test(char* Path)
     Trie trie2;
 
     trie = loadDict(Path);
-   
-    int* freq = Trie_get(trie, "unsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettres");
+
+    int* freq = NULL;
+    /*void* data = NULL;
+    Trie_get_approximate(trie, "test", 1, &testcall, data);*/
+    /*int* freq = Trie_get(trie, "unsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettresunsupermotetextremementlongavectropdelettres");
     printf("%p %i\n", freq, *freq);
 
     freq = Trie_get(trie, "petitecoquinette");
-    printf("%p %i\n", freq, *freq);
+    printf("%p %i\n", freq, *freq);*/
 
     FILE* data = fopen("./dict.bin", "w"); 
 
@@ -43,6 +84,11 @@ void test(char* Path)
     freq = Trie_get(trie, "petitecoquinette");
     printf("%p %i\n", freq, *freq);
 
+    list list = listCreate();
+    Trie_get_approximate(trie, "test", 1, &testcall, list);
+    listShow(list);
+    listDel(list);
+    
     if(trie2)
         Trie_del(trie2);
 }
@@ -82,6 +128,7 @@ int main(int argc, char* argv[])
     else if (argc == 2)
     {
         test(argv[1]);
+        //test2();
     }
     else
         printf("%s /path/to/word/freq.txt /path/to/output/dict.bin\n", argv[0]);
