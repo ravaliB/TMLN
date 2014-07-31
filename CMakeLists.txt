@@ -14,5 +14,13 @@ file( GLOB
     src/*
     src/TextCompil/main.c)
 
+file( GLOB
+    AppSrcFiles
+    src/*
+    src/TextApp/main.c)
+
 add_executable( TextMiningCompiler
     ${CompilSrcFiles})
+
+add_executable( TextMiningApp
+    ${AppSrcFiles})
