@@ -79,3 +79,68 @@ void listShow(list l)
 
     printf("]\n");
 }
+
+list listSort(list l, int (*compare)(list a, list b))
+{
+    if (!l || !l->next)
+        return l;
+
+    list right = l;
+    list tmp = l;
+    list last = l;
+    list result = NULL;
+    list next = NULL;
+    list tail = NULL;
+
+    //Search for pivot
+    while (tmp && tmp->next)
+    {
+        last = right;
+        right = right->next;
+        tmp = tmp->next->next;
+    }
+    
+    //Cut from pivot
+    last->next = 0;
+
+    l = listSort(l, compare);
+    right = listSort(right, compare);
+
+    while (l || right)
+    {
+        if (!right) 
+        {
+            next = l;
+            l = l->next;
+        } 
+        else if (!l) 
+        {
+            next = right;
+            right = right->next;
+        }
+        else if (compare(l, right) < 0)
+        {
+            next = l;
+            l = l->next;
+        }
+        else
+        {
+            next = right;
+            right = right->next;
+        }
+
+        if (!result)
+        {
+            result = next;
+        }
+        else
+        {
+            tail->next = next;
+        }
+
+        tail = next;
+    }
+
+    return result;
+
+}

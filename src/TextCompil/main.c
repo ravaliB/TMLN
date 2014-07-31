@@ -1,9 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../trie.h"
 #include "../dict.h"
 #include "../list.h"
+
+
+int _compare(list l1, list l2)
+{
+    if (l1->distance > l2->distance) //Crescent
+        return 1;
+    else if (l1->value < l2->value) //Decrescent
+        return 1;
+    else if (strcmp(l1->key, l2->key) > 0) //Crescent
+        return 1;
+
+    return -1;
+}
 
 void testcall(const unsigned char *key, 
 				      const void *value,
@@ -86,6 +100,7 @@ void test(char* Path)
 
     list list = listCreate();
     Trie_get_approximate(trie, "test", 1, &testcall, list);
+    list = listSort(list, &_compare);
     listShow(list);
     listDel(list);
     

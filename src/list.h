@@ -12,7 +12,7 @@ struct _list {
 
 list listCreate();
 list listAppend(list l, const unsigned char* key, int value, const int distance);
-//list listSort(list l);
+list listSort(list l, int (*compare)(list a, list b));
 void listDel(list l);
 void listShow(list l);
 
