@@ -140,11 +140,11 @@ int main(int argc, char* argv[])
             return storeWord(argv[1], argv[2]);
         }
     }
-    else if (argc == 2)
+    /*else if (argc == 2)
     {
         test(argv[1]);
-        //test2();
-    }
+        test2();
+    }*/
     else
         printf("%s /path/to/word/freq.txt /path/to/output/dict.bin\n", argv[0]);
 

@@ -29,7 +29,7 @@ void makeList(const unsigned char *key,
     listAppend(l, key, *(int*)value, mismatches);
 }
 
-void test(char *file)
+void searchDict(char *file)
 {
     FILE* data2 = fopen(file, "r");
     Trie trie2;
@@ -71,10 +71,12 @@ mem_error:
         Trie_del(trie2);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-    if (argc > 1)
-        test(argv[1]);
+    if (argc == 2)
+        searchDict(argv[1]);
+    else
+        printf("Usage: %s /path/to/compiled/dict.bin\n", argv[0]);
 
     return 0;
 }
