@@ -70,7 +70,8 @@ void listShow(list l)
 
     while (l)
     {
-        printf("{\"word\":\"%s\",\"freq\":\"%i\",\"distance\":\"%i\"}", l->key, l->value, l->distance);
+        if (l->key)
+            printf("{\"word\":\"%s\",\"freq\":\"%i\",\"distance\":\"%i\"}", l->key, l->value, l->distance);
         l = l->next;
 
         if (l)
